@@ -20,20 +20,20 @@ Below is a short demonstration of the application recognising various hand gestu
 
 This project has transitioned from a simple rule-based system to a more robust machine learning approach.
 
-1.  **Data Preparation (`src/prepare_data.py`)**:
+1.  **Data Preparation (`prepare_data.py`)**:
     -   The process starts with a collection of gesture images located in `data/raw`, categorised into subfolders by gesture name (e.g., `fist`, `open_palm`).
     -   The `prepare_data.py` script iterates through these images, using MediaPipe to detect hand landmarks.
     -   For each detected hand, the 21 landmarks are **normalised**. Normalisation makes the model robust to variations in hand size and position relative to the camera. The script calculates the coordinates relative to the wrist and scales them.
     -   The normalised landmark data and its corresponding label are saved into a single CSV file: `data/processed/landmarks.csv`.
     
 
-2.  **Model Training (`src/train_knn.py`)**:
+2.  **Model Training (`train_knn.py`)**:
     -   The `train_knn.py` script reads the `landmarks.csv` file.
     -   It splits the data into a training set and a testing set.
     -   A K-Nearest Neighbours (KNN) classifier is trained on the landmark data. The features are also scaled using `StandardScaler` to ensure all landmarks contribute equally to the distance calculations.
     -   The trained KNN model and the scaler are saved to the `models/` directory as `knn_model.pkl` and `knn_scaler.pkl`.
 
-3.  **Real-Time Prediction (`src/main.py`)**:
+3.  **Real-Time Prediction (`main.py`)**:
     -   The main application loads the pre-trained KNN model and scaler.
     -   It captures video from the webcam frame by frame.
     -   For each frame, MediaPipe detects hands and extracts their landmarks.
@@ -56,12 +56,6 @@ The model is trained to recognise the following gestures based on the folders in
 - Python 3.8+
 - A webcam
 
-### 2. Clone the Repository
-```bash
-git clone <your-repository-url>
-cd hand_gesture_recognizer
-```
-
 ### 3. Set Up a Virtual Environment (Recommended)
 ```bash
 # For macOS/Linux
@@ -81,7 +75,7 @@ pip install -r requirements.txt
 ### 5. Run the Pipeline
 Follow these steps to process data, train the model, and run the application.
 
-**Step 1: Prepare the Landmark Data**
+**Step 1: Prepare the Landmark Data(result is landmarks.csv)**
 This script will process the images in `data/raw` and create `data/processed/landmarks.csv`.
 ```bash
 python3 src/prepare_data.py
